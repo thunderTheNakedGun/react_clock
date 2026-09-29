@@ -4,10 +4,24 @@ type Props = {
   name: string;
 };
 
-export class Clock extends React.Component<Props> {
-  render() {
-    const today = new Date();
+type State = {
+  time: Date;
+};
 
+export class Clock extends React.Component<Props, State> {
+  state: State = {
+    time: new Date(),
+  };
+
+  timerId: number = 0;
+
+  componentDidMount(): void {
+    this.timerId = window.setInterval(() => {
+      this.setState({ time: new Date() });
+    }, 1000);
+  }
+
+  render() {
     return (
       <div className="Clock">
         <strong className="Clock__name">{this.props.name}</strong>
@@ -15,7 +29,7 @@ export class Clock extends React.Component<Props> {
         {' time is '}
 
         <span className="Clock__time">
-          {today.toUTCString().slice(-12, -4)}
+          {this.state.time.toUTCString().slice(-12, -4)}
         </span>
       </div>
     );
