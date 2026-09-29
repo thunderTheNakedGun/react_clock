@@ -18,6 +18,8 @@ export class Clock extends React.Component<Props, State> {
   componentDidMount(): void {
     this.timerId = window.setInterval(() => {
       this.setState({ time: new Date() });
+      // eslint-disable-next-line no-console
+      console.log(this.state.time);
     }, 1000);
   }
 
